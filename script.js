@@ -1,14 +1,13 @@
-document.getElementById('search-button').addEventListener('click', function() {
-    const city = document.getElementById('city-input').value.trim();
-    if (city) {
-        fetchWeather(city);
-        addToHistory(city);
-        saveCityToLocalStorage(city);
-    }
-});
-
 document.addEventListener('DOMContentLoaded', () => {
-    loadSearchHistory();
+    // Attach event listener to the search button
+    document.getElementById('search-button').addEventListener('click', function() {
+        const city = document.getElementById('city-input').value.trim();
+        if (city) {
+            fetchWeather(city);
+        }
+    });
+
+    // Attach event listeners to all "Frequently Searched Cities" buttons
     attachEventListenersToFrequentCities();
 });
 
@@ -53,39 +52,11 @@ function updateForecast(data) {
     }
 }
 
-function addToHistory(city) {
-    const historyDiv = document.getElementById('search-history');
-    const cityButton = document.createElement('button');
-    cityButton.textContent = city;
-    cityButton.addEventListener('click', function() {
-        fetchWeather(city);
-    });
-
-    if (![...historyDiv.children].some(btn => btn.textContent === city)) {
-        historyDiv.appendChild(cityButton);
-    }
-}
-
-function saveCityToLocalStorage(city) {
-    let cities = JSON.parse(localStorage.getItem('cities')) || [];
-    if (!cities.includes(city)) {
-        cities.push(city);
-        localStorage.setItem('cities', JSON.stringify(cities));
-    }
-}
-
-function loadSearchHistory() {
-    const cities = JSON.parse(localStorage.getItem('cities')) || [];
-    cities.forEach(city => addToHistory(city));
-}
-
 function attachEventListenersToFrequentCities() {
     document.querySelectorAll('.city-btn').forEach(button => {
         button.addEventListener('click', function() {
             const city = this.textContent;
             fetchWeather(city);
-            addToHistory(city);
-            saveCityToLocalStorage(city);
         });
     });
 }
