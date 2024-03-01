@@ -1,7 +1,7 @@
 {
   "type": "module",
   "scripts": {
-    "start": "node server.mjs"
+    "start": "node src/server.mjs"
   },
   "engines": {
     "node": "16.x"
