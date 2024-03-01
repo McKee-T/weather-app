@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div class="container">
+        <aside id="search-section">
+            <h2>Search for City</h2>
+            <input type="text" id="city-input" placeholder="Enter a city name">
+            <button id="search-button">Search</button>
+            <div id="frequent-cities">
+                <h3>Frequently Searched Cities</h3>
+                <button class="city-btn">Austin</button>
+                <button class="city-btn">Los Angeles</button>
+                <button class="city-btn">New York</button>
+                <button class="city-btn">Boston</button>
+                <button class="city-btn">Pittsburgh</button>
+                <button class="city-btn">Seattle</button>
+            </div>
+        </aside>
+        <main>
+            <section id="current-weather"></section>
+            <section id="forecast">
+                <h2>5-Day Forecast</h2>
+                <div class="forecast-tiles"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
