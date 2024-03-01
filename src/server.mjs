@@ -1,41 +1,34 @@
-// Import necessary modules
 import express from 'express';
-import fetch from 'node-fetch'; 
+import fetch from 'node-fetch';
 import path from 'path';
-
+import { fileURLToPath } from 'url';
 
 const app = express();
-const PORT = process.env.PORT || 4001; 
+const PORT = process.env.PORT || 4001;
 
-// Utility function to ensure correct path format 
-function ensureCorrectPathFormat(pathname) {
-    return pathname.replace(/^\/([A-Za-z]:)/, '$1');
-}
+// Create an equivalent of __dirname in ES Module scope
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const projectRootPath = path.join(__dirname, '..');
+app.use(express.static(projectRootPath));
+console.log(`Serving static files from: ${projectRootPath}`);
 
-// Construct an absolute path to the 'public' directory 
-const __dirname = ensureCorrectPathFormat(path.dirname(new URL(import.meta.url).pathname));
-const publicPath = path.resolve(__dirname, '../public');
-app.use(express.static(publicPath)); 
-console.log("Serving static from: ", publicPath);
-
-
+// Middleware to log incoming request URLs for debugging
 app.use((req, res, next) => {
     console.log('Request URL:', req.originalUrl);
     next();
 });
 
-
-const API_KEY = "0d09fc7ee5df7b518660777e251c6898"; 
+const API_KEY = "0d09fc7ee5df7b518660777e251c6898"; // Use your actual API key
 
 // Route for fetching weather data
 app.get('/weather', (req, res) => {
-    const { city } = req.query; 
+    const { city } = req.query;
     const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}`;
 
-    fetch(url) 
-        .then(response => response.json()) 
-        .then(data => res.send(data)) 
-        .catch(error => res.status(500).send(error)); 
+    fetch(url)
+        .then(response => response.json())
+        .then(data => res.send(data))
+        .catch(error => res.status(500).send(error));
 });
 
 // Catch-all handler for unhandled routes
