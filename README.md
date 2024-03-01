@@ -20,7 +20,9 @@ As a user, I want a place where I can quickly search the current and upcoming we
  ## Installation
 
  npm i 
+ 
  node src/server.mjs
+ 
  open at http://localhost:4001/
 
  ## Usage
