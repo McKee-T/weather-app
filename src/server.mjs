@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import fetch from 'node-fetch';
 import path from 'path';
@@ -18,7 +19,7 @@ app.use((req, res, next) => {
     next();
 });
 
-const API_KEY = "0d09fc7ee5df7b518660777e251c6898"; // Use your actual API key
+const API_KEY = process.env.OPENWEATHER_API_KEY;
 
 // Route for fetching weather data
 app.get('/weather', (req, res) => {
